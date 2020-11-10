@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta property="og:title" content="Test task - remove cubes game" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.mymovies.com.ua" />
+    <meta
+      property="og:image"
+      content="https://image.tmdb.org/t/p/w500/1n00NlOGRFZVs8coBxyZLm5l4EC.jpg"
+    />
+    <meta
+      property="og:description"
+      content="Test task - create remove cubes game"
+    />
+    <style>
+      #preloader {
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: 999;
+        width: 100%;
+        height: 100%;
+        overflow: visible;
+        background-color: #fbfbfb;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .preloader__text {
+        font-size: 20px;
+        font-weight: 500;
+      }
+      .visible {
+        visibility: visible;
+        opacity: 1;
+        transition: opacity 2s linear;
+      }
+
+      .hidden {
+        visibility: hidden;
+        opacity: 0;
+        transition: visibility 0s 2s, opacity 2s linear;
+      }
+    </style>
+    <link rel="shortcut icon" href="./images/favicon.png" type="image/png" />
+    <title>Cubes</title>
+  </head>
+
+  <body>
+    <h1 class="visually-hidden">Remove cubes game</h1>
+    <div id="preloader" class="visible">
+      <p class="preloader__text">Please, wait, we're doing our best!</p>
+      <img
+        class="preloader__img"
+        src="./images/preloader.svg"
+        alt="preloader"
+      />
+    </div>
+    <main>
+      <div class="container">
+        <ul class="game-board">
+          <li class="first"></li>
+          <li class="second"></li>
+          <li class="third"></li>
+          <li class="4"></li>
+          <li class="5"></li>
+        </ul>
+      </div>
+    </main>
+  </body>
+</html>
