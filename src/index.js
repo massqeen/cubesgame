@@ -4,20 +4,21 @@ import CubeParams from './js/CubeParams';
 import './scss/main.scss';
 import gameCube from './templates/gameCube.hbs';
 
-globalVars.emptyColumnsArr = { columnNo: 9, span: 2 };
-globalVars.emptyRowsArr = { rowNo: 1, span: 1 };
-console.log(globalVars.emptyColumnsArr);
-console.log(globalVars.emptyRowsArr);
+// globalVars.emptyColumnsArr = { columnNo: 9, span: 2 };
+// globalVars.emptyRowsArr = { rowNo: 1, span: 1 };
+console.log('filledCoords:', globalVars.filledCoords);
+
 let cubesArr = [];
-for (let i = 0; i < 10; i += 1) {
+for (let i = 0; i < 6; i += 1) {
   let cube = new CubeParams();
+  globalVars.filledCoords = { coords: cube.coords, span: cube.span };
   console.log(cube);
   cubesArr = [...cubesArr, cube];
+  console.log('all cubes:', cubesArr);
 }
 const markup = gameCube(cubesArr);
-console.log(markup);
 document.querySelector('.game-board').innerHTML = markup;
-
+console.log('filledCoords:', globalVars.filledCoords);
 // refs.gallery.addEventListener('click', galleryClickHandler);
 // refs.swiperWrap.addEventListener('click', galleryClickHandler);
 // refs.headNav.addEventListener('click', showLibraryHandler);
