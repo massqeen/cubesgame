@@ -6,18 +6,3 @@
   grid-template-rows: repeat(10, 1fr);
   grid-template-columns: repeat(10, 1fr);
 }
-.first {
-  grid-column: 2;
-  grid-row: 1;
-  background-color: yellow;
-}
-.second {
-  grid-column: 5 / span 2;
-  grid-row: 1 / span 2;
-  background-color: red;
-}
-.third {
-  grid-column: 9 / span 2;
-  grid-row: 1 / span 2;
-  background-color: blue;
-}
