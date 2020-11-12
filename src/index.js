@@ -5,12 +5,11 @@ import './scss/main.scss';
 import gameCube from './templates/gameCube.hbs';
 import refs from './js/refs';
 
-console.log('filledCoords:', globalVars.filledCoords);
-
 let cubesArr = [];
 for (let i = 0; i < 20; i += 1) {
   let cube = new CubeParams();
   globalVars.filledCoords = { coords: cube.coords, span: cube.span };
+  console.log('globalVars.filledCoords', globalVars.filledCoords);
   console.log(cube);
   cubesArr = [...cubesArr, cube];
   console.log('all cubes:', cubesArr);

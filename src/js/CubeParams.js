@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import globalVars from './globalVars/vars';
 import getRandomInteger from './components/getRandom';
 import getFilledCoords from './getFilledCoords';
@@ -6,6 +7,8 @@ class CubeParams {
   color = this.getColor();
   span = this.getSize();
   coords = this.getCoords();
+  filledCoords = getFilledCoords([], this.coords[0], this.coords[1], this.span);
+  id = uuidv4();
 
   getColor() {
     const colors = globalVars.colorsArr;
@@ -22,29 +25,31 @@ class CubeParams {
       getRandomInteger(1, globalVars.columnsQuant - this.span + 1),
       getRandomInteger(1, globalVars.rowsQuant - this.span + 1)
     );
-    console.log('initial coords:', coords);
-    const currFilledCells = getFilledCoords([], coords, this.span);
-    console.log('currFilledCells:', currFilledCells);
-    if (!this.isPlaceEmpty(currFilledCells)) {
+
+    const currFilledCoords = getFilledCoords(
+      [],
+      coords[0],
+      coords[1],
+      this.span
+    );
+    console.log('currFilledCoords:', currFilledCoords);
+    if (!this.isPlaceEmpty(currFilledCoords)) {
       coords = this.changeCoords(coords);
       console.log('changed coords for:', coords);
     }
     return coords;
   }
 
-  isPlaceEmpty(currFilledCells) {
-    const flattenFilledCoords = globalVars.filledCoords.flat();
-    const flattenFilledCells = currFilledCells.flat();
-    console.log('flattened filled coords: ', flattenFilledCoords);
-    for (let i = 0; i < flattenFilledCoords.length - 1; i += 2) {
-      for (let j = 0; j < flattenFilledCells.length - 1; j += 2) {
+  isPlaceEmpty(currFilledCoords) {
+    const filledCoords = globalVars.filledCoords;
+
+    for (let i = 0; i < filledCoords.length - 1; i += 2) {
+      for (let j = 0; j < currFilledCoords.length - 1; j += 2) {
         if (
-          flattenFilledCells[j] === flattenFilledCoords[i] &&
-          flattenFilledCells[j + 1] === flattenFilledCoords[i + 1]
+          currFilledCoords[j] === filledCoords[i] &&
+          currFilledCoords[j + 1] === filledCoords[i + 1]
         ) {
-          console.log(
-            `move block ${[flattenFilledCells[j], flattenFilledCells[j + 1]]}`
-          );
+          console.log('occupied');
           return false;
         }
       }
@@ -56,30 +61,29 @@ class CubeParams {
     console.log('move to the right', coords);
     let column = coords[0];
     let row = coords[1];
-    let currFilledCells = getFilledCoords([], [column, row], this.span);
-    while (!this.isPlaceEmpty(currFilledCells)) {
+    let currFilledCoords = getFilledCoords([], column, row, this.span);
+    while (!this.isPlaceEmpty(currFilledCoords)) {
       if (column < globalVars.columnsQuant - this.span + 1) {
         column += 1;
-        currFilledCells = getFilledCoords([], [column, row], this.span);
-        console.log('changed currFilledCells:', currFilledCells);
-        console.log('empty:', this.isPlaceEmpty(currFilledCells));
+        currFilledCoords = getFilledCoords([], column, row, this.span);
+        console.log('changed currFilledCoords:', currFilledCoords);
+        console.log('empty:', this.isPlaceEmpty(currFilledCoords));
       } else if (row < globalVars.rowsQuant - this.span + 1) {
         row += 1;
         column = 1;
-        currFilledCells = getFilledCoords([], [column, row], this.span);
-        console.log('changed currFilledCells:', currFilledCells);
-        console.log('empty:', this.isPlaceEmpty(currFilledCells));
+        currFilledCoords = getFilledCoords([], column, row, this.span);
+        console.log('changed currFilledCoords:', currFilledCoords);
+        console.log('empty:', this.isPlaceEmpty(currFilledCoords));
       } else {
         {
           row = 1;
           column = 1;
-          currFilledCells = getFilledCoords([], [column, row], this.span);
-          console.log('changed currFilledCells:', currFilledCells);
-          console.log('empty:', this.isPlaceEmpty(currFilledCells));
+          currFilledCoords = getFilledCoords([], column, row, this.span);
+          console.log('changed currFilledCoords:', currFilledCoords);
+          console.log('empty:', this.isPlaceEmpty(currFilledCoords));
         }
       }
     }
-
     return [column, row];
   }
 }

@@ -48,12 +48,10 @@
   },
   "dependencies": {
     "@handlebars/allow-prototype-access": "^1.0.3",
-    "basiclightbox": "^5.0.3",
-    "body-scroll-lock": "^3.1.5",
-    "browser-sync": "^2.26.13",
     "core-js": "^3.6.5",
     "eslint": "^7.12.1",
     "handlebars": "^4.7.6",
-    "prettier": "^2.1.2"
+    "prettier": "^2.1.2",
+    "uuid": "^8.3.1"
   }
 }

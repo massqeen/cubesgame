@@ -19,24 +19,13 @@ const globalVars = {
     return this._filledCoords;
   },
   set filledCoords({ coords, span }) {
-    this._filledCoords = getFilledCoords(this.filledCoords, coords, span);
+    this._filledCoords = getFilledCoords(
+      this.filledCoords,
+      coords[0],
+      coords[1],
+      span
+    );
   },
-  // get emptyColumnsArr() {
-  //   return this._emptyColumnsArr;
-  // },
-  // set emptyColumnsArr({ columnNo, span }) {
-  //   this._emptyColumnsArr = removeFilledCoords(
-  //     this.emptyColumnsArr,
-  //     columnNo,
-  //     span
-  //   );
-  // },
-  // get emptyRowsArr() {
-  //   return this._emptyRowsArr;
-  // },
-  // set emptyRowsArr({ rowNo, span }) {
-  //   this._emptyRowsArr = removeFilledCoords(this.emptyRowsArr, rowNo, span);
-  // },
 };
 
 export default globalVars;
