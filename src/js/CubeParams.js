@@ -11,7 +11,7 @@ class CubeParams {
   id = uuidv4();
 
   getColor() {
-    const colors = globalVars.colorsArr;
+    const colors = globalVars.colors;
     return colors[getRandomInteger(0, colors.length - 1)];
   }
 

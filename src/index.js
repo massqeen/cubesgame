@@ -5,20 +5,32 @@ import './scss/main.scss';
 import gameCube from './templates/gameCube.hbs';
 import refs from './js/refs';
 
-let cubesArr = [];
-for (let i = 0; i < 20; i += 1) {
+for (let i = 0; i < 3; i += 1) {
   let cube = new CubeParams();
   globalVars.filledCoords = { coords: cube.coords, span: cube.span };
   console.log('globalVars.filledCoords', globalVars.filledCoords);
   console.log(cube);
-  cubesArr = [...cubesArr, cube];
-  console.log('all cubes:', cubesArr);
+  globalVars.cubes = [cube];
+  console.log('all cubes:', globalVars.cubes);
 }
-const markup = gameCube(cubesArr);
+const markup = gameCube(globalVars.cubes);
 refs.gameBoard.innerHTML = markup;
-// console.log('filledCoords:', globalVars.filledCoords);
 
-// refs.gallery.addEventListener('click', galleryClickHandler);
+const boardClickHandler = ({ target }) => {
+  if (target.nodeName === 'LI') {
+    const cubes = globalVars.cubes;
+    const id = target.dataset.id;
+    const currFilledCoords = target.dataset.filled
+      .split(',')
+      .map((item) => +item);
+    globalVars.resetCubes();
+    globalVars.cubes = cubes.filter((item) => item.id !== id);
+    console.log('left cubes:', globalVars.cubes);
+    target.remove();
+    // TODO filter global filled coords
+  }
+};
+refs.gameBoard.addEventListener('click', boardClickHandler);
 // refs.swiperWrap.addEventListener('click', galleryClickHandler);
 // refs.headNav.addEventListener('click', showLibraryHandler);
 // refs.searchForm.addEventListener('submit', submitHandler);
