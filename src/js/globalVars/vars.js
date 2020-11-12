@@ -2,10 +2,8 @@ import getFilledCoords from '../getFilledCoords';
 
 const globalVars = {
   _colorsArr: ['#0083c3', '#ffb400', '#ff0026', '#479b45', '#aaa'],
-  _columnsQuant: 10,
-  _rowsQuant: 10,
-  // _emptyColumnsArr: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-  // _emptyRowsArr: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+  _columnsQuant: 20,
+  _rowsQuant: 20,
   _filledCoords: [],
 
   get colorsArr() {
