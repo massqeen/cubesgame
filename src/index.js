@@ -3,13 +3,12 @@ import globalVars from './js/globalVars/vars';
 import CubeParams from './js/CubeParams';
 import './scss/main.scss';
 import gameCube from './templates/gameCube.hbs';
+import refs from './js/refs';
 
-// globalVars.emptyColumnsArr = { columnNo: 9, span: 2 };
-// globalVars.emptyRowsArr = { rowNo: 1, span: 1 };
 console.log('filledCoords:', globalVars.filledCoords);
 
 let cubesArr = [];
-for (let i = 0; i < 6; i += 1) {
+for (let i = 0; i < 20; i += 1) {
   let cube = new CubeParams();
   globalVars.filledCoords = { coords: cube.coords, span: cube.span };
   console.log(cube);
@@ -17,8 +16,9 @@ for (let i = 0; i < 6; i += 1) {
   console.log('all cubes:', cubesArr);
 }
 const markup = gameCube(cubesArr);
-document.querySelector('.game-board').innerHTML = markup;
-console.log('filledCoords:', globalVars.filledCoords);
+refs.gameBoard.innerHTML = markup;
+// console.log('filledCoords:', globalVars.filledCoords);
+
 // refs.gallery.addEventListener('click', galleryClickHandler);
 // refs.swiperWrap.addEventListener('click', galleryClickHandler);
 // refs.headNav.addEventListener('click', showLibraryHandler);

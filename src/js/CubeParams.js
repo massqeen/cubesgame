@@ -6,33 +6,36 @@ class CubeParams {
   color = this.getColor();
   span = this.getSize();
   coords = this.getCoords();
-  // column = this.getColumnNo();
-  // row = this.getRowNo();
 
   getColor() {
     const colors = globalVars.colorsArr;
     return colors[getRandomInteger(0, colors.length - 1)];
   }
+
   getSize() {
     return getRandomInteger(1, 2);
   }
+
   getCoords() {
-    const arr = [];
-    arr.push(
-      getRandomInteger(1, globalVars.columnsQuant),
-      getRandomInteger(1, globalVars.rowsQuant)
+    let coords = [];
+    coords.push(
+      getRandomInteger(1, globalVars.columnsQuant - this.span + 1),
+      getRandomInteger(1, globalVars.rowsQuant - this.span + 1)
     );
-    const filledCells = getFilledCoords([], arr, this.span);
-    console.log('cells filled: ', filledCells);
-    this.isCoordsEmpty(filledCells);
-    return arr;
+    console.log('initial coords:', coords);
+    const currFilledCells = getFilledCoords([], coords, this.span);
+    console.log('currFilledCells:', currFilledCells);
+    if (!this.isPlaceEmpty(currFilledCells)) {
+      coords = this.changeCoords(coords);
+      console.log('changed coords for:', coords);
+    }
+    return coords;
   }
 
-  isCoordsEmpty(filledCells) {
+  isPlaceEmpty(currFilledCells) {
     const flattenFilledCoords = globalVars.filledCoords.flat();
-    const flattenFilledCells = filledCells.flat();
+    const flattenFilledCells = currFilledCells.flat();
     console.log('flattened filled coords: ', flattenFilledCoords);
-    console.log('flattened filled cells: ', flattenFilledCells);
     for (let i = 0; i < flattenFilledCoords.length - 1; i += 2) {
       for (let j = 0; j < flattenFilledCells.length - 1; j += 2) {
         if (
@@ -42,26 +45,43 @@ class CubeParams {
           console.log(
             `move block ${[flattenFilledCells[j], flattenFilledCells[j + 1]]}`
           );
+          return false;
         }
       }
     }
+    return true;
   }
-  // getColumnNo() {
-  //   return getRandomInteger(1, globalVars.columnsQuant);
-  // }
-  // getRowNo() {
-  //   // const rowNo = getRandomInteger(1, globalVars.rowsQuant);
-  //   return getRandomInteger(1, globalVars.rowsQuant);
-  // }
-  // removeEmptyCoords() {
-  //   if (
-  //     globalVars.emptyColumnsArr.includes(this.column) &&
-  //     globalVars.emptyRowsArr.includes(this.row)
-  //   ) {
-  //     globalVars.emptyColumnsArr = { columnNo: this.column, span: this.span };
-  //     globalVars.emptyRowsArr = { rowNo: this.row, span: this.span };
-  //   }
-  // }
+
+  changeCoords(coords) {
+    console.log('move to the right', coords);
+    let column = coords[0];
+    let row = coords[1];
+    let currFilledCells = getFilledCoords([], [column, row], this.span);
+    while (!this.isPlaceEmpty(currFilledCells)) {
+      if (column < globalVars.columnsQuant - this.span + 1) {
+        column += 1;
+        currFilledCells = getFilledCoords([], [column, row], this.span);
+        console.log('changed currFilledCells:', currFilledCells);
+        console.log('empty:', this.isPlaceEmpty(currFilledCells));
+      } else if (row < globalVars.rowsQuant - this.span + 1) {
+        row += 1;
+        column = 1;
+        currFilledCells = getFilledCoords([], [column, row], this.span);
+        console.log('changed currFilledCells:', currFilledCells);
+        console.log('empty:', this.isPlaceEmpty(currFilledCells));
+      } else {
+        {
+          row = 1;
+          column = 1;
+          currFilledCells = getFilledCoords([], [column, row], this.span);
+          console.log('changed currFilledCells:', currFilledCells);
+          console.log('empty:', this.isPlaceEmpty(currFilledCells));
+        }
+      }
+    }
+
+    return [column, row];
+  }
 }
 
 export default CubeParams;
