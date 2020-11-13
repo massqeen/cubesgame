@@ -1,7 +1,8 @@
 import { v4 as uuidv4 } from 'uuid';
-import globalVars from './globalVars/vars';
+import options from './globals/options';
 import getRandomInteger from './components/getRandom';
 import calcCubeFilledCoords from './calcCubeFilledCoords';
+import boardCubes from './globals/boardCubes';
 
 class CubeParams {
   color = this.getColor();
@@ -16,7 +17,7 @@ class CubeParams {
   id = uuidv4();
 
   getColor() {
-    const colors = globalVars.colors;
+    const colors = options.colors;
     return colors[getRandomInteger(0, colors.length - 1)];
   }
 
@@ -27,8 +28,8 @@ class CubeParams {
   getCoords() {
     let coords = [];
     coords.push(
-      getRandomInteger(1, globalVars.columnsQuant - this.span + 1),
-      getRandomInteger(1, globalVars.rowsQuant - this.span + 1)
+      getRandomInteger(1, options.columnsQuant - this.span + 1),
+      getRandomInteger(1, options.rowsQuant - this.span + 1)
     );
 
     const currFilledCoords = calcCubeFilledCoords(
@@ -46,7 +47,7 @@ class CubeParams {
   }
 
   isPlaceEmpty(currFilledCoords) {
-    const filledCoords = globalVars.filledCoords;
+    const filledCoords = boardCubes.filledCoords;
 
     for (let i = 0; i < filledCoords.length - 1; i += 2) {
       for (let j = 0; j < currFilledCoords.length - 1; j += 2) {
@@ -68,12 +69,12 @@ class CubeParams {
     let row = coords[1];
     let currFilledCoords = calcCubeFilledCoords([], column, row, this.span);
     while (!this.isPlaceEmpty(currFilledCoords)) {
-      if (column < globalVars.columnsQuant - this.span + 1) {
+      if (column < options.columnsQuant - this.span + 1) {
         column += 1;
         currFilledCoords = calcCubeFilledCoords([], column, row, this.span);
         console.log('changed currFilledCoords:', currFilledCoords);
         console.log('empty:', this.isPlaceEmpty(currFilledCoords));
-      } else if (row < globalVars.rowsQuant - this.span + 1) {
+      } else if (row < options.rowsQuant - this.span + 1) {
         row += 1;
         column = 1;
         currFilledCoords = calcCubeFilledCoords([], column, row, this.span);

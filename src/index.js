@@ -1,48 +1,22 @@
 import runPreloader from './js/components/preloader';
-import globalVars from './js/globalVars/vars';
-import CubeParams from './js/CubeParams';
-import gameCube from './templates/gameCube.hbs';
+import options from './js/globals/options';
+import boardCubes from './js/globals/boardCubes';
 import refs from './js/refs';
 import './scss/main.scss';
 import './images/favicon.png';
-import calcCubeFilledCoords from './js/calcCubeFilledCoords';
+import updateCubesMarkup from './js/updateCubesMarkup';
+import getRandomInteger from './js/components/getRandom';
 
-for (let i = 0; i < 10; i += 1) {
-  let cube = new CubeParams();
-
-  globalVars.filledCoords = calcCubeFilledCoords(
-    [],
-    cube.coords[0],
-    cube.coords[1],
-    cube.span
-  );
-  console.log('globalVars.filledCoords', globalVars.filledCoords);
-  console.log(cube);
-  globalVars.cubes = [cube];
-  console.log('all cubes:', globalVars.cubes);
-}
-const markup = gameCube(globalVars.cubes);
-refs.gameBoard.innerHTML = markup;
+updateCubesMarkup(options.startCubesAmount);
 
 const boardClickHandler = ({ target }) => {
   if (target.nodeName === 'LI') {
-    const cubes = globalVars.cubes;
     const id = target.dataset.id;
-    const currFilledCoords = target.dataset.filled
-      .split(',')
-      .map((item) => +item);
-    console.log('currFilledCoords', currFilledCoords);
-    globalVars.resetCubes();
-    globalVars.cubes = cubes.filter((cube) => cube.id !== id);
-    console.log('left cubes:', globalVars.cubes);
+    boardCubes.removeCube(id);
+    console.log('left cubes:', boardCubes.cubes);
     target.remove();
-    let leftFilledCoords = [];
-    globalVars.cubes.forEach((cube) => {
-      leftFilledCoords = [...leftFilledCoords, ...cube.filledCoords];
-    });
-    console.log('leftFilledCoords:', leftFilledCoords);
-    globalVars.resetFilledCoords();
-    globalVars.filledCoords = leftFilledCoords;
+    boardCubes.updateFilledCoords();
+    updateCubesMarkup(getRandomInteger(0, 2));
   }
 };
 refs.gameBoard.addEventListener('click', boardClickHandler);
