@@ -1,13 +1,21 @@
 import runPreloader from './js/components/preloader';
 import globalVars from './js/globalVars/vars';
 import CubeParams from './js/CubeParams';
-import './scss/main.scss';
 import gameCube from './templates/gameCube.hbs';
 import refs from './js/refs';
+import './scss/main.scss';
+import './images/favicon.png';
+import calcCubeFilledCoords from './js/calcCubeFilledCoords';
 
-for (let i = 0; i < 3; i += 1) {
+for (let i = 0; i < 10; i += 1) {
   let cube = new CubeParams();
-  globalVars.filledCoords = { coords: cube.coords, span: cube.span };
+
+  globalVars.filledCoords = calcCubeFilledCoords(
+    [],
+    cube.coords[0],
+    cube.coords[1],
+    cube.span
+  );
   console.log('globalVars.filledCoords', globalVars.filledCoords);
   console.log(cube);
   globalVars.cubes = [cube];
@@ -23,11 +31,18 @@ const boardClickHandler = ({ target }) => {
     const currFilledCoords = target.dataset.filled
       .split(',')
       .map((item) => +item);
+    console.log('currFilledCoords', currFilledCoords);
     globalVars.resetCubes();
-    globalVars.cubes = cubes.filter((item) => item.id !== id);
+    globalVars.cubes = cubes.filter((cube) => cube.id !== id);
     console.log('left cubes:', globalVars.cubes);
     target.remove();
-    // TODO filter global filled coords
+    let leftFilledCoords = [];
+    globalVars.cubes.forEach((cube) => {
+      leftFilledCoords = [...leftFilledCoords, ...cube.filledCoords];
+    });
+    console.log('leftFilledCoords:', leftFilledCoords);
+    globalVars.resetFilledCoords();
+    globalVars.filledCoords = leftFilledCoords;
   }
 };
 refs.gameBoard.addEventListener('click', boardClickHandler);

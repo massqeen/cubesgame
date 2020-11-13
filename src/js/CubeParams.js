@@ -1,13 +1,18 @@
 import { v4 as uuidv4 } from 'uuid';
 import globalVars from './globalVars/vars';
 import getRandomInteger from './components/getRandom';
-import getFilledCoords from './getFilledCoords';
+import calcCubeFilledCoords from './calcCubeFilledCoords';
 
 class CubeParams {
   color = this.getColor();
   span = this.getSize();
   coords = this.getCoords();
-  filledCoords = getFilledCoords([], this.coords[0], this.coords[1], this.span);
+  filledCoords = calcCubeFilledCoords(
+    [],
+    this.coords[0],
+    this.coords[1],
+    this.span
+  );
   id = uuidv4();
 
   getColor() {
@@ -26,7 +31,7 @@ class CubeParams {
       getRandomInteger(1, globalVars.rowsQuant - this.span + 1)
     );
 
-    const currFilledCoords = getFilledCoords(
+    const currFilledCoords = calcCubeFilledCoords(
       [],
       coords[0],
       coords[1],
@@ -61,24 +66,24 @@ class CubeParams {
     console.log('move to the right', coords);
     let column = coords[0];
     let row = coords[1];
-    let currFilledCoords = getFilledCoords([], column, row, this.span);
+    let currFilledCoords = calcCubeFilledCoords([], column, row, this.span);
     while (!this.isPlaceEmpty(currFilledCoords)) {
       if (column < globalVars.columnsQuant - this.span + 1) {
         column += 1;
-        currFilledCoords = getFilledCoords([], column, row, this.span);
+        currFilledCoords = calcCubeFilledCoords([], column, row, this.span);
         console.log('changed currFilledCoords:', currFilledCoords);
         console.log('empty:', this.isPlaceEmpty(currFilledCoords));
       } else if (row < globalVars.rowsQuant - this.span + 1) {
         row += 1;
         column = 1;
-        currFilledCoords = getFilledCoords([], column, row, this.span);
+        currFilledCoords = calcCubeFilledCoords([], column, row, this.span);
         console.log('changed currFilledCoords:', currFilledCoords);
         console.log('empty:', this.isPlaceEmpty(currFilledCoords));
       } else {
         {
           row = 1;
           column = 1;
-          currFilledCoords = getFilledCoords([], column, row, this.span);
+          currFilledCoords = calcCubeFilledCoords([], column, row, this.span);
           console.log('changed currFilledCoords:', currFilledCoords);
           console.log('empty:', this.isPlaceEmpty(currFilledCoords));
         }

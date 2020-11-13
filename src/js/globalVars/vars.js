@@ -1,4 +1,4 @@
-import getFilledCoords from '../getFilledCoords';
+import calcCubeFilledCoords from '../calcCubeFilledCoords';
 
 const globalVars = {
   _colors: ['#0083c3', '#ffb400', '#ff0026', '#479b45', '#aaa'],
@@ -30,13 +30,19 @@ const globalVars = {
   get filledCoords() {
     return this._filledCoords;
   },
-  set filledCoords({ coords, span }) {
-    this._filledCoords = getFilledCoords(
-      this.filledCoords,
-      coords[0],
-      coords[1],
-      span
-    );
+  // set filledCoords({ coords, span }) {
+  //   this._filledCoords = calcCubeFilledCoords(
+  //     this.filledCoords,
+  //     coords[0],
+  //     coords[1],
+  //     span
+  //   );
+  // },
+  set filledCoords(arr) {
+    this._filledCoords = [...this._filledCoords, ...arr];
+  },
+  resetFilledCoords() {
+    this._filledCoords = [];
   },
 };
 
