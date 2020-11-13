@@ -6,8 +6,15 @@ import './scss/main.scss';
 import './images/favicon.png';
 import updateCubesMarkup from './js/updateCubesMarkup';
 import getRandomInteger from './js/components/getRandom';
+import CountdownTimer from './js/components/CountdownTimer';
+
+const timer = new CountdownTimer({
+  selector: '#timer-1',
+  targetTime: 60000,
+});
 
 updateCubesMarkup(options.startCubesAmount);
+timer.start();
 
 const boardClickHandler = ({ target }) => {
   if (target.nodeName === 'LI') {

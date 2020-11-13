@@ -1,0 +1,58 @@
+.timer {
+  font-size: 0;
+  text-align: center;
+}
+
+.field {
+  display: inline-block;
+  width: 70px;
+}
+
+.value {
+  display: inline-block;
+  font-size: 50px;
+  background: #4dadf7;
+  color: #ffffff;
+  line-height: 70px;
+  width: 60px;
+  margin: 0 1px;
+  border-radius: 2px;
+}
+
+.label {
+  display: block;
+  background: none;
+  color: inherit;
+  text-transform: uppercase;
+  font-size: 16px;
+  line-height: 30px;
+  width: auto;
+  margin: 0;
+}
+
+.timer_divider {
+  display: inline-block;
+  vertical-align: top;
+  font-size: 50px;
+  line-height: 70px;
+  margin: 0 5px;
+}
+
+@media (max-width: 767px) {
+  .field {
+    width: 50px;
+  }
+  .value {
+    font-size: 30px;
+    width: 36px;
+    line-height: 40px;
+  }
+  .timer_divider {
+    line-height: 40px;
+    font-size: 30px;
+  }
+  .label {
+    font-size: 12px;
+    line-height: 26px;
+  }
+}
