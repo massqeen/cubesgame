@@ -8,6 +8,11 @@ import updateCubesMarkup from './js/updateCubesMarkup';
 import getRandomInteger from './js/components/getRandom';
 import CountdownTimer from './js/components/CountdownTimer';
 
+const timer = new CountdownTimer({
+  selector: '#timer-1',
+  targetTime: options.timer,
+});
+
 const boardClickHandler = ({ target }) => {
   if (target.nodeName === 'LI') {
     const id = target.dataset.id;
@@ -25,10 +30,6 @@ const boardClickHandler = ({ target }) => {
 
 const startHandler = () => {
   updateCubesMarkup(options.startCubesAmount);
-  const timer = new CountdownTimer({
-    selector: '#timer-1',
-    targetTime: 60000,
-  });
   timer.start();
 };
 

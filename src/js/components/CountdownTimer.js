@@ -4,10 +4,14 @@ class CountdownTimer {
   constructor({ selector, targetTime }) {
     this.$timer = document.querySelector(selector);
     this.$timeUnits = Array.from(this.$timer.querySelectorAll('[data-value]'));
-    this.targetTime = Date.now() + 1000 + targetTime;
+    this.targetTime = targetTime;
     this.isActive = false;
+    this.minutes = Math.floor((targetTime % (1000 * 60 * 60)) / (1000 * 60));
+    this.seconds = Math.floor((targetTime % (1000 * 60)) / 1000);
+    this.updateHTML = this.updateTimerView([this.minutes, this.seconds]);
   }
   start() {
+    this.targetTime += Date.now() + 1000;
     if (this.isActive) {
       return;
     }
@@ -15,12 +19,13 @@ class CountdownTimer {
     refs.start.disabled = true;
     const intervalID = setInterval(() => {
       const currentTime = Date.now();
-      const timeLeft = this.targetTime - currentTime;
+      const timeLeft =
+        this.targetTime - currentTime > 1 ? this.targetTime - currentTime : 0;
       const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
       const timeData = [minutes, seconds];
       this.updateTimerView(timeData);
-      if (timeLeft < 1000) {
+      if (timeLeft === 0) {
         this.stop(intervalID);
       }
     }, 1000);
