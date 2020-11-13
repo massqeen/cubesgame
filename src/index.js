@@ -8,14 +8,6 @@ import updateCubesMarkup from './js/updateCubesMarkup';
 import getRandomInteger from './js/components/getRandom';
 import CountdownTimer from './js/components/CountdownTimer';
 
-const timer = new CountdownTimer({
-  selector: '#timer-1',
-  targetTime: 60000,
-});
-
-updateCubesMarkup(options.startCubesAmount);
-timer.start();
-
 const boardClickHandler = ({ target }) => {
   if (target.nodeName === 'LI') {
     const id = target.dataset.id;
@@ -23,10 +15,30 @@ const boardClickHandler = ({ target }) => {
     console.log('left cubes:', boardCubes.cubes);
     target.remove();
     boardCubes.updateFilledCoords();
+    if (boardCubes.cubes.length === 1) {
+      updateCubesMarkup(10);
+      return;
+    }
     updateCubesMarkup(getRandomInteger(0, 2));
   }
 };
+
+const startHandler = () => {
+  updateCubesMarkup(options.startCubesAmount);
+  const timer = new CountdownTimer({
+    selector: '#timer-1',
+    targetTime: 60000,
+  });
+  timer.start();
+};
+
+const newGameHandler = () => {
+  console.log('NEW GAME');
+};
+
 refs.gameBoard.addEventListener('click', boardClickHandler);
+refs.start.addEventListener('click', startHandler);
+refs.newGame.addEventListener('click', newGameHandler);
 // refs.swiperWrap.addEventListener('click', galleryClickHandler);
 // refs.headNav.addEventListener('click', showLibraryHandler);
 // refs.searchForm.addEventListener('submit', submitHandler);
