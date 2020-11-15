@@ -6,48 +6,67 @@ import './scss/main.scss';
 import './images/favicon.png';
 import updateCubesMarkup from './js/updateCubesMarkup';
 import getRandomInteger from './js/components/getRandom';
+import points from './js/points';
 import CountdownTimer from './js/components/CountdownTimer';
 
 const timer = new CountdownTimer({
   selector: '#timer-1',
   targetTime: options.timer,
+  pause: refs.pause,
 });
 
 const boardClickHandler = ({ target }) => {
-  if (target.nodeName === 'LI') {
-    const id = target.dataset.id;
-    boardCubes.removeCube(id);
-    console.log('left cubes:', boardCubes.cubes);
-    target.remove();
-    boardCubes.updateFilledCoords();
-    if (boardCubes.cubes.length === 1) {
-      updateCubesMarkup(10);
-      return;
-    }
-    updateCubesMarkup(getRandomInteger(0, 2));
+  if (target.nodeName !== 'LI' || !timer.isActive) {
+    return;
   }
-};
+  const id = target.dataset.id;
+  if (+target.dataset.time !== 0) {
+    timer.changeTime(target.dataset.time);
+  }
 
-const startHandler = () => {
-  updateCubesMarkup(options.startCubesAmount);
-  timer.start();
+  points.addPoints(target.dataset.points);
+  refs.points.textContent = points.points;
+  boardCubes.removeCube(id);
+  console.log('left cubes:', boardCubes.cubes);
+  target.remove();
+  boardCubes.updateFilledCoords();
+  if (boardCubes.cubes.length === 1) {
+    updateCubesMarkup(10);
+    return;
+  }
+  updateCubesMarkup(getRandomInteger(0, 2));
 };
 
 const newGameHandler = () => {
-  console.log('NEW GAME');
+  timer.stop();
+  boardCubes.resetCubes();
+  boardCubes.resetFilledCoords();
+  points.resetPoints();
+  updateCubesMarkup(options.startCubesAmount);
+  timer.start();
+  if (refs.pause.dataset.state === 'paused') {
+    refs.pause.dataset.state = 'started';
+    refs.pause.textContent = 'Pause';
+    refs.gameBoard.classList.remove('blocked');
+  }
+  if (refs.pause.disabled) {
+    refs.pause.disabled = false;
+  }
+};
+
+const pauseHandler = () => {
+  refs.gameBoard.classList.toggle('blocked');
+  if (refs.pause.dataset.state === 'started') {
+    timer.pause();
+    refs.pause.dataset.state = 'paused';
+    refs.pause.textContent = 'Resume';
+    return;
+  }
+  timer.play();
+  refs.pause.dataset.state = 'started';
+  refs.pause.textContent = 'Pause';
 };
 
 refs.gameBoard.addEventListener('click', boardClickHandler);
-refs.start.addEventListener('click', startHandler);
 refs.newGame.addEventListener('click', newGameHandler);
-// refs.swiperWrap.addEventListener('click', galleryClickHandler);
-// refs.headNav.addEventListener('click', showLibraryHandler);
-// refs.searchForm.addEventListener('submit', submitHandler);
-// refs.sectionWatched.addEventListener('click', showSavedMovieFromGrade);
-// refs.toTop.addEventListener('click', function () {
-//   scrollToTop(30);
-// });
-// refs.headNav.addEventListener('click', showLibraryHandler);
-// refs.sectionWatched.addEventListener('click', showSavedMovieFromGrade);
-// window.addEventListener('scroll', throttle(isVisible, 500));
-// refs.logo.addEventListener('click', logoHandler);
+refs.pause.addEventListener('click', pauseHandler);
