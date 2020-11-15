@@ -20,10 +20,14 @@ const boardClickHandler = ({ target }) => {
     return;
   }
   const id = target.dataset.id;
+  if (+target.dataset.time !== 0) {
+    timer.changeTime(target.dataset.time);
+  }
+
+  points.addPoints(target.dataset.points);
+  refs.points.textContent = points.points;
   boardCubes.removeCube(id);
   console.log('left cubes:', boardCubes.cubes);
-  points.addPoints(+target.dataset.points);
-  refs.points.textContent = points.points;
   target.remove();
   boardCubes.updateFilledCoords();
   if (boardCubes.cubes.length === 1) {

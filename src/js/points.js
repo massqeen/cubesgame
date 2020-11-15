@@ -6,8 +6,11 @@ const points = {
   set points(number) {
     this._points = number;
   },
-  addPoints(number) {
-    this.points += number;
+  addPoints(value) {
+    if (Number.isNaN(+value)) {
+      return;
+    }
+    this.points += +value;
   },
   resetPoints() {
     this._points = 0;

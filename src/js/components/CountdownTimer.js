@@ -1,5 +1,3 @@
-import refs from '../refs';
-
 class CountdownTimer {
   constructor({ selector, targetTime, pause }) {
     this.$timer = document.querySelector(selector);
@@ -50,6 +48,14 @@ class CountdownTimer {
     }
     this.timeLeft = this.targetTime;
     this.updateTimerView([this.minutes, this.seconds]);
+  }
+  changeTime(value) {
+    if (Number.isNaN(+value)) {
+      return 0;
+    }
+    this.pause();
+    this.timeLeft += +value;
+    this.play();
   }
   updateTimerView(arr) {
     this.$timeUnits.forEach(
