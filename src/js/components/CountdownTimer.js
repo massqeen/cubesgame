@@ -3,7 +3,7 @@ class CountdownTimer {
     this.$timer = document.querySelector(selector);
     this.$timeUnits = Array.from(this.$timer.querySelectorAll('[data-value]'));
     this.$pauseBtn = pause;
-    this.targetTime = targetTime + 1000;
+    this.targetTime = targetTime;
     this.timeLeft = this.targetTime;
     this.isActive = false;
     this.intervalID = null;
@@ -23,8 +23,8 @@ class CountdownTimer {
     const targetTime = this.timeLeft + Date.now();
     this.intervalID = setInterval(() => {
       const currentTime = Date.now();
-      this.timeLeft =
-        targetTime - currentTime > 500 ? targetTime - currentTime : 0;
+      this.timeLeft = Math.ceil((targetTime - currentTime) / 1000) * 1000;
+      console.log(this.timeLeft);
       const minutes = Math.floor(
         (this.timeLeft % (1000 * 60 * 60)) / (1000 * 60)
       );
@@ -32,6 +32,7 @@ class CountdownTimer {
       const timeData = [minutes, seconds];
       this.updateTimerView(timeData);
       if (this.timeLeft === 0) {
+        // this.updateTimerView([0, 0]);
         this.stop();
       }
     }, 1000);
@@ -55,6 +56,13 @@ class CountdownTimer {
     }
     this.pause();
     this.timeLeft += +value;
+    if (this.timeLeft < 1000) {
+      this.timeLeft = 0;
+      // this.pause();
+      // this.updateTimerView([0, 0]);
+      this.stop();
+      return;
+    }
     this.play();
   }
   updateTimerView(arr) {
