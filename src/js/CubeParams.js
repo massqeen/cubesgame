@@ -15,6 +15,8 @@ class CubeParams {
     this.span
   );
   id = uuidv4();
+  points = this.getPoints();
+  time = this.getTime();
 
   getColor() {
     const colors = options.colors;
@@ -23,6 +25,33 @@ class CubeParams {
 
   getSize() {
     return getRandomInteger(1, 2);
+  }
+
+  getPoints() {
+    const multiplier = this.span === 2 ? 1 : 2;
+    let points = 0;
+
+    switch (this.color) {
+      case options.colors[1]:
+        points = 2 * multiplier;
+        break;
+      case options.colors[4]:
+        points = 3 * multiplier;
+        break;
+      default:
+        points = multiplier;
+    }
+    return points;
+  }
+
+  getTime() {
+    if (this.color === options.colors[2]) {
+      return 1000;
+    }
+    if (this.color === options.colors[3]) {
+      return -2000;
+    }
+    return 0;
   }
 
   getCoords() {
