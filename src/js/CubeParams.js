@@ -15,6 +15,7 @@ class CubeParams {
     this.span
   );
   id = uuidv4();
+  points = 1;
 
   getColor() {
     const colors = options.colors;

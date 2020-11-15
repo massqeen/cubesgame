@@ -6,6 +6,7 @@ import './scss/main.scss';
 import './images/favicon.png';
 import updateCubesMarkup from './js/updateCubesMarkup';
 import getRandomInteger from './js/components/getRandom';
+import points from './js/points';
 import CountdownTimer from './js/components/CountdownTimer';
 
 const timer = new CountdownTimer({
@@ -15,24 +16,28 @@ const timer = new CountdownTimer({
 });
 
 const boardClickHandler = ({ target }) => {
-  if (target.nodeName === 'LI') {
-    const id = target.dataset.id;
-    boardCubes.removeCube(id);
-    console.log('left cubes:', boardCubes.cubes);
-    target.remove();
-    boardCubes.updateFilledCoords();
-    if (boardCubes.cubes.length === 1) {
-      updateCubesMarkup(10);
-      return;
-    }
-    updateCubesMarkup(getRandomInteger(0, 2));
+  if (target.nodeName !== 'LI' || !timer.isActive) {
+    return;
   }
+  const id = target.dataset.id;
+  boardCubes.removeCube(id);
+  console.log('left cubes:', boardCubes.cubes);
+  points.addPoints(+target.dataset.points);
+  refs.points.textContent = points.points;
+  target.remove();
+  boardCubes.updateFilledCoords();
+  if (boardCubes.cubes.length === 1) {
+    updateCubesMarkup(10);
+    return;
+  }
+  updateCubesMarkup(getRandomInteger(0, 2));
 };
 
 const newGameHandler = () => {
   timer.stop();
   boardCubes.resetCubes();
   boardCubes.resetFilledCoords();
+  points.resetPoints();
   updateCubesMarkup(options.startCubesAmount);
   timer.start();
   if (refs.pause.dataset.state === 'paused') {

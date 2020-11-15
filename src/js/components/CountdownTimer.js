@@ -21,11 +21,6 @@ class CountdownTimer {
     this.isActive = true;
     this.play();
   }
-  updateTimerView(arr) {
-    this.$timeUnits.forEach(
-      (timeUnit, i) => (timeUnit.textContent = this.pad(arr[i]))
-    );
-  }
   play() {
     const targetTime = this.timeLeft + Date.now();
     this.intervalID = setInterval(() => {
@@ -55,6 +50,11 @@ class CountdownTimer {
     }
     this.timeLeft = this.targetTime;
     this.updateTimerView([this.minutes, this.seconds]);
+  }
+  updateTimerView(arr) {
+    this.$timeUnits.forEach(
+      (timeUnit, i) => (timeUnit.textContent = this.pad(arr[i]))
+    );
   }
   pad(value) {
     return String(value).padStart(2, '0');
