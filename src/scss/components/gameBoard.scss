@@ -7,3 +7,6 @@
   grid-template-columns: repeat(20, 1fr);
   border: 1px solid red;
 }
+.blocked {
+  pointer-events: none;
+}
