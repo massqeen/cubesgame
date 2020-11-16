@@ -1,36 +1,18 @@
-@import 'minireset.scss';
-@import 'normalize.scss';
-@import 'fonts.scss';
-@import 'vars.scss';
-@import 'mixins.scss';
+@import '~bootstrap/scss/bootstrap';
+@import '../../node_modules/bootstrap/scss/_root';
+@import '../../node_modules/bootstrap/scss/_reboot';
+@import '../../node_modules/bootstrap/scss/_variables';
+@import '../../node_modules/bootstrap/scss/_mixins';
+@import '../../node_modules/bootstrap/scss/_containers';
 
-:root {
-  font-size: 62.5%;
-}
-
-//reset margin from normalize
 h1 {
   margin-top: 0;
 }
-
-body {
-  font-family: 'Roboto', sans-serif;
-  @include font(1.2, 1.6rem, 400);
-  color: $main-text;
-  background-color: #fff;
+ul {
+  list-style: none;
 }
-
-.container {
-  padding-left: 20px;
-  padding-right: 20px;
-  margin: 0 auto;
-  max-width: 1200px;
-  height: 100vh;
-
-  @media (max-width: 576px) {
-    padding-left: 10px;
-    padding-right: 10px;
-  }
+.btn {
+  min-width: 130px;
 }
 
 .load-more {
@@ -39,4 +21,3 @@ body {
 }
 
 @import './components/gameBoard';
-@import './components/timer';

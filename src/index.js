@@ -1,4 +1,5 @@
 import runPreloader from './js/components/preloader';
+import { Modal } from 'bootstrap';
 import options from './js/globals/options';
 import boardCubes from './js/globals/boardCubes';
 import refs from './js/refs';
@@ -9,10 +10,12 @@ import getRandomInteger from './js/components/getRandom';
 import points from './js/points';
 import CountdownTimer from './js/components/CountdownTimer';
 
+const resultPopup = new Modal(refs.resultPopup, {});
 const timer = new CountdownTimer({
   selector: '#timer-1',
   targetTime: options.timer,
   pause: refs.pause,
+  popup: resultPopup,
 });
 
 const boardClickHandler = ({ target }) => {

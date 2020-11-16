@@ -1,15 +1,14 @@
 class CountdownTimer {
-  constructor({ selector, targetTime, pause }) {
+  constructor({ selector, targetTime, pause, popup }) {
     this.$timer = document.querySelector(selector);
-    this.$timeUnits = Array.from(this.$timer.querySelectorAll('[data-value]'));
     this.$pauseBtn = pause;
+    this.$popup = popup;
     this.targetTime = targetTime;
     this.timeLeft = this.targetTime;
     this.isActive = false;
     this.intervalID = null;
-    this.minutes = Math.floor((targetTime % (1000 * 60 * 60)) / (1000 * 60));
-    this.seconds = Math.floor((targetTime % (1000 * 60)) / 1000);
-    this.updateHTML = this.updateTimerView([this.minutes, this.seconds]);
+    this.render(this.convertTime(this.timeLeft));
+    this.popup = popup;
   }
 
   start() {
@@ -25,12 +24,7 @@ class CountdownTimer {
       const currentTime = Date.now();
       this.timeLeft = Math.ceil((targetTime - currentTime) / 1000) * 1000;
       console.log(this.timeLeft);
-      const minutes = Math.floor(
-        (this.timeLeft % (1000 * 60 * 60)) / (1000 * 60)
-      );
-      const seconds = Math.floor((this.timeLeft % (1000 * 60)) / 1000);
-      const timeData = [minutes, seconds];
-      this.updateTimerView(timeData);
+      this.render(this.convertTime(this.timeLeft));
       if (this.timeLeft === 0) {
         this.stop();
       }
@@ -44,10 +38,10 @@ class CountdownTimer {
     this.isActive = false;
     this.$pauseBtn.disabled = true;
     if (this.timeLeft === 0) {
-      alert('time is up!');
+      this.popup.show();
     }
     this.timeLeft = this.targetTime;
-    this.updateTimerView([this.minutes, this.seconds]);
+    this.render(this.convertTime(this.timeLeft));
   }
   changeTime(value) {
     if (Number.isNaN(+value)) {
@@ -62,13 +56,17 @@ class CountdownTimer {
     }
     this.play();
   }
-  updateTimerView(arr) {
-    this.$timeUnits.forEach(
-      (timeUnit, i) => (timeUnit.textContent = this.pad(arr[i]))
-    );
+  convertTime(time) {
+    const minutes = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60))
+      .toString()
+      .padStart(2, '0');
+    const seconds = Math.round((time % (1000 * 60)) / 1000)
+      .toString()
+      .padStart(2, '0');
+    return `${minutes}:${seconds}`;
   }
-  pad(value) {
-    return String(value).padStart(2, '0');
+  render(time) {
+    this.$timer.textContent = time;
   }
 }
 
