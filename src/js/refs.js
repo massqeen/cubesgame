@@ -3,6 +3,8 @@ const refs = {
   newGame: document.querySelector('.new-game'),
   pause: document.querySelector('.pause'),
   points: document.querySelector('.points'),
-  resultPopup: document.getElementById('staticBackdrop2'),
+  resultForm: document.querySelector('.result-form'),
+  resultPoints: document.querySelector('.result-points'),
+  resultPopup: document.querySelector('#staticBackdrop2'),
 };
 export default refs;

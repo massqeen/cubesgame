@@ -10,6 +10,7 @@ h1 {
 }
 ul {
   list-style: none;
+  padding-left: 0;
 }
 .container {
   min-height: 100vh;
@@ -17,8 +18,13 @@ ul {
 }
 .btn {
   min-width: 130px;
+  @media (max-width: 1024px) {
+    min-width: 90px;
+  }
 }
-
+.rules {
+  text-indent: 1.2rem;
+}
 .load-more {
   width: 100px;
   height: 30px;

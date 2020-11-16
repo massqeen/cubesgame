@@ -11,27 +11,40 @@ import points from './js/points';
 import CountdownTimer from './js/components/CountdownTimer';
 
 const resultPopup = new Modal(refs.resultPopup, {});
+
+const gameOverHandler = () => {
+  refs.points.textContent = '0';
+  resultPopup.show();
+  refs.resultPoints.textContent = points.points;
+  refs.pause.disabled = true;
+  refs.gameBoard.classList.add('blocked');
+};
+
 const timer = new CountdownTimer({
   selector: '#timer-1',
   targetTime: options.timer,
-  pause: refs.pause,
-  popup: resultPopup,
+  endHandler: gameOverHandler,
 });
 
-const boardClickHandler = ({ target }) => {
-  if (target.nodeName !== 'LI' || !timer.isActive) {
+const boardClickHandler = ({ target, target: { dataset } }) => {
+  if (target.nodeName !== 'LI') {
     return;
   }
-  const id = target.dataset.id;
-  if (+target.dataset.time !== 0) {
-    timer.changeTime(target.dataset.time);
+  const id = dataset.id;
+  if (+dataset.time !== 0) {
+    timer.changeTime(dataset.time);
   }
-
-  points.addPoints(target.dataset.points);
-  refs.points.textContent = points.points;
+  points.addPoints(dataset.points);
   boardCubes.removeCube(id);
   console.log('left cubes:', boardCubes.cubes);
   target.remove();
+  // in case user's clicking '-time' cube, that ends the game
+  if (!timer.isActive) {
+    refs.points.textContent = '0';
+    refs.resultPoints.textContent = points.points;
+    return;
+  }
+  refs.points.textContent = points.points;
   boardCubes.updateFilledCoords();
   if (boardCubes.cubes.length === 1) {
     updateCubesMarkup(10);
@@ -45,7 +58,9 @@ const newGameHandler = () => {
   boardCubes.resetCubes();
   boardCubes.resetFilledCoords();
   points.resetPoints();
+  refs.points.textContent = '0';
   updateCubesMarkup(options.startCubesAmount);
+  refs.gameBoard.classList.remove('blocked');
   timer.start();
   if (refs.pause.dataset.state === 'paused') {
     refs.pause.dataset.state = 'started';
@@ -70,6 +85,21 @@ const pauseHandler = () => {
   refs.pause.textContent = 'Pause';
 };
 
+const resultSubmitHandler = (e) => {
+  e.preventDefault();
+  const form = e.currentTarget;
+  const result = {
+    name: form.elements.name.value,
+    score: points.points,
+  };
+  console.log(result);
+  // add player to results
+  // render top-players
+  form.reset();
+  resultPopup.hide();
+};
+
 refs.gameBoard.addEventListener('click', boardClickHandler);
 refs.newGame.addEventListener('click', newGameHandler);
 refs.pause.addEventListener('click', pauseHandler);
+refs.resultForm.addEventListener('submit', resultSubmitHandler);

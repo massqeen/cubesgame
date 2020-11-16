@@ -61,8 +61,8 @@
     </div>
     <main>
       <div class="container">
-        <div class="row align-items-center">
-          <div class="col-12 col-md-8 p-2 align-self-center">
+        <div class="row align-items-end justify-content-evenly">
+          <div class="col-10 col-md-8 p-2 align-self-center">
             <h1 class="text-left text-uppercase">Remove cubes</h1>
             <div class="d-flex justify-content-between">
               <div class="d-flex m-0 align-self-center flex-nowrap mr-2">
@@ -82,29 +82,33 @@
                   Pause
                 </button>
               </div>
-              <div class="d-flex m-0 align-self-center flex-nowrap">
-                <div class="d-inline-block points">Points</div>
-                <div
-                  class="d-inline-block p-2 bg-dark text-white mr-2 text-break js-scope"
-                >
-                  0
+              <div
+                class="d-flex m-0 align-self-center justify-content-center flex-nowrap flex-grow-1"
+              >
+                <div class="d-flex flex-column w-25">
+                  <div class="">Points</div>
+                  <div
+                    class="border border-primary p-2 mr-4 text-center points"
+                  >
+                    0
+                  </div>
                 </div>
-                <div class="d-inline-block">Time left</div>
-                <div
-                  class="d-inline-block p-2 bg-dark text-white text-break timer"
-                  id="timer-1"
-                >
-                  00:01:00
+                <div class="d-flex flex-column w-25">
+                  <div>Time left</div>
+                  <div
+                    class="p-2 border border-primary text-center timer"
+                    id="timer-1"
+                  >
+                    00:01:00
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-          <div
-            class="col-4 p-2 text-center align-self-center d-none d-md-block"
-          >
+          <div class="col-2 p-2 text-center d-none d-md-block">
             <button
               type="button"
-              class="btn btn-dark w-100"
+              class="btn btn-info text-light w-100"
               data-toggle="modal"
               data-target="#staticBackdrop"
             >
@@ -112,21 +116,6 @@
             </button>
           </div>
         </div>
-
-        <!--        <div class="points-container">-->
-        <!--          <span>Points</span><span class="points">0</span>-->
-        <!--        </div>-->
-        <!--        <div class="timer" id="timer-1">-->
-        <!--          <div class="field">-->
-        <!--            <span class="value" data-value="minutes">01</span>-->
-        <!--            <span class="label">Minutes</span>-->
-        <!--          </div>-->
-        <!--          <span class="timer_divider">:</span>-->
-        <!--          <div class="field">-->
-        <!--            <span class="value" data-value="seconds">00</span>-->
-        <!--            <span class="label">Seconds</span>-->
-        <!--          </div>-->
-        <!--        </div>-->
         <ul class="game-board"></ul>
       </div>
     </main>
@@ -140,10 +129,10 @@
       style="display: none"
       aria-hidden="true"
     >
-      <div class="modal-dialog">
+      <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content p-4">
           <div class="modal-header">
-            <h5 class="modal-title" id="staticBackdropLabel">Rules</h5>
+            <h3 class="modal-title" id="staticBackdropLabel">Rules</h3>
             <button
               type="button"
               class="btn-close"
@@ -152,27 +141,27 @@
             ></button>
           </div>
           <div class="modal-body">
-            <div class="mb-4">Welcome to Funny square game!</div>
-            <ul class="p-4">
-              <li class="mb-2">
-                The goal of the game is to score as many points as possible
-              </li>
-              <li class="mb-2">You get 2 points for the green square</li>
-              <li class="mb-2">You get 1 point for the yellow square</li>
-              <li class="mb-2">You will lose 1 point per red square</li>
-              <li class="mb-2">
-                When you click on a green, yellow or red square, one, two or
-                zero new cubes may appear
-              </li>
-              <li class="mb-2">
-                The game ends after time is left or if all the spaces are filled
-                with colored squares or colored squares disappear completely
-              </li>
+            <h4 class="mb-3">Welcome to "Remove cubes" game!</h4>
+            <p class="mb-2 rules">
+              There is a field on the page with multi-colored blocks, that are
+              located in a random order. To remove cube from the field hover
+              over it and then click with the left mouse button. You've got 1
+              minute only. As you remove the cube from the field, random number
+              of the new cubes appear (0-2). The goal of the game is to score a
+              maximum amount of points.
+            </p>
+            <ul>
+              <li class="mb-2">2 points for the green cube;</li>
+              <li class="mb-2">3 points for the blue cube;</li>
+              <li class="mb-2">1 point for the rest of colors;</li>
+              <li class="mb-2">2x points for any small cube;</li>
+              <li class="mb-2">-2 seconds for the red cube;</li>
+              <li class="mb-2">+1 second for the pink cube.</li>
             </ul>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-primary" data-dismiss="modal">
-              Understood
+              Got it
             </button>
           </div>
         </div>
@@ -187,10 +176,10 @@
       aria-labelledby="staticBackdropLabel2"
       aria-hidden="true"
     >
-      <div class="modal-dialog">
+      <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h4 class="modal-title" id="staticBackdropLabel2">Hall of fame</h4>
+            <h4 class="modal-title" id="staticBackdropLabel2">Well done!</h4>
             <button
               type="button"
               class="btn-close"
@@ -199,31 +188,20 @@
             ></button>
           </div>
           <div class="modal-body">
-            <div class="mb-5">
-              Your result is <span class="js-scope">0</span> scopes
+            <div class="mb-4">
+              Your score: <span class="result-points">0</span>
             </div>
-            <form class="mb-5 js-add-result">
+            <form class="result-form">
               <input
-                class="form-control mb-3"
+                class="form-control mb-5"
                 name="name"
                 maxlength="15"
                 minlength="2"
-                required=""
-                placeholder="Nick name"
+                required
+                placeholder="Enter your name"
               />
-              <button type="submit" class="btn btn-primary mb-2">
-                Add your name to hall of fame
-              </button>
+              <button type="submit" class="btn btn-primary">Save</button>
             </form>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-dismiss="modal"
-            >
-              Cancel
-            </button>
           </div>
         </div>
       </div>

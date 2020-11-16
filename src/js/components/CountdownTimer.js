@@ -1,14 +1,12 @@
 class CountdownTimer {
-  constructor({ selector, targetTime, pause, popup }) {
+  constructor({ selector, targetTime, endHandler }) {
     this.$timer = document.querySelector(selector);
-    this.$pauseBtn = pause;
-    this.$popup = popup;
     this.targetTime = targetTime;
     this.timeLeft = this.targetTime;
+    this.endHandler = endHandler;
     this.isActive = false;
     this.intervalID = null;
     this.render(this.convertTime(this.timeLeft));
-    this.popup = popup;
   }
 
   start() {
@@ -23,7 +21,6 @@ class CountdownTimer {
     this.intervalID = setInterval(() => {
       const currentTime = Date.now();
       this.timeLeft = Math.ceil((targetTime - currentTime) / 1000) * 1000;
-      console.log(this.timeLeft);
       this.render(this.convertTime(this.timeLeft));
       if (this.timeLeft === 0) {
         this.stop();
@@ -35,11 +32,10 @@ class CountdownTimer {
   }
   stop() {
     clearInterval(this.intervalID);
-    this.isActive = false;
-    this.$pauseBtn.disabled = true;
-    if (this.timeLeft === 0) {
-      this.popup.show();
+    if (this.timeLeft <= 0) {
+      this.endHandler();
     }
+    this.isActive = false;
     this.timeLeft = this.targetTime;
     this.render(this.convertTime(this.timeLeft));
   }
@@ -49,8 +45,7 @@ class CountdownTimer {
     }
     this.pause();
     this.timeLeft += +value;
-    if (this.timeLeft < 1000) {
-      this.timeLeft = 0;
+    if (this.timeLeft <= 0) {
       this.stop();
       return;
     }
