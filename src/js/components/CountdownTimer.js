@@ -32,7 +32,6 @@ class CountdownTimer {
       const timeData = [minutes, seconds];
       this.updateTimerView(timeData);
       if (this.timeLeft === 0) {
-        // this.updateTimerView([0, 0]);
         this.stop();
       }
     }, 1000);
@@ -58,8 +57,6 @@ class CountdownTimer {
     this.timeLeft += +value;
     if (this.timeLeft < 1000) {
       this.timeLeft = 0;
-      // this.pause();
-      // this.updateTimerView([0, 0]);
       this.stop();
       return;
     }
