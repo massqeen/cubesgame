@@ -1,16 +1,16 @@
 import runPreloader from './js/components/preloader';
 import { Modal } from 'bootstrap';
-import options from './js/globals/options';
 import boardCubes from './js/globals/boardCubes';
-import refs from './js/refs';
-import './scss/main.scss';
-import './images/favicon.png';
-import updateCubesMarkup from './js/view/updateCubesMarkup';
-import getRandomInteger from './js/components/getRandom';
-import points from './js/points';
 import CountdownTimer from './js/components/CountdownTimer';
+import getRandomInteger from './js/components/getRandom';
+import options from './js/globals/options';
+import points from './js/points';
+import refs from './js/refs';
 import ResultsTable from './js/ResultsTable';
+import updateCubesMarkup from './js/view/updateCubesMarkup';
+import './scss/main.scss';
 import './images/opengraph.jpg';
+import './images/favicon.png';
 
 const resultsTable = new ResultsTable();
 const resultPopup = new Modal(refs.resultPopup, {});

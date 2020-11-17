@@ -30,4 +30,4 @@
 
 - ### Release v 1.0.0:
 
-  - **[MyMovies](https://mymovies.com.ua/)**
+  - **[Remove cubes](https://massqeen.github.io/cubesgame/)**

@@ -1,7 +1,7 @@
 const runPreloader = () => {
   function loadData() {
     return new Promise((resolve) => {
-      setTimeout(resolve, 100);
+      setTimeout(resolve, 0);
     });
   }
 

@@ -13,7 +13,6 @@ class ResultsTable {
   addPlayer({ name, score }) {
     const result = { name, score, position: null };
     this.results = [...this.results, result];
-    console.log('this.results', this.results);
     this.results
       .sort((prev, next) => next.score - prev.score)
       .forEach((player, index) => (player.position = index + 1));

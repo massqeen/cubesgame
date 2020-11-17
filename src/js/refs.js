@@ -1,11 +1,11 @@
 const refs = {
-  gameBoard: document.querySelector('.game-board'),
-  newGame: document.querySelector('.new-game'),
-  pause: document.querySelector('.pause'),
-  points: document.querySelector('.points'),
-  resultForm: document.querySelector('.result-form'),
-  resultPoints: document.querySelector('.result-points'),
+  gameBoard: document.querySelector('.js-game-board'),
+  newGame: document.querySelector('.js-new-game'),
+  pause: document.querySelector('.js-pause'),
+  points: document.querySelector('.js-points'),
+  resultForm: document.querySelector('.js-result-form'),
+  resultPoints: document.querySelector('.js-result-points'),
   resultPopup: document.querySelector('#staticBackdrop2'),
-  resultTable: document.querySelector('.result-table'),
+  resultTable: document.querySelector('.js-result-table'),
 };
 export default refs;

@@ -14,10 +14,7 @@ const updateCubesMarkup = (n) => {
       cube.coords[1],
       cube.span
     );
-    console.log('boardCubes.filledCoords', boardCubes.filledCoords);
-    console.log(cube);
     boardCubes.cubes = [cube];
-    console.log('all cubes:', boardCubes.cubes);
   }
   refs.gameBoard.innerHTML = gameCube(boardCubes.cubes);
 };

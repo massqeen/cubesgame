@@ -69,13 +69,13 @@
                 <button
                   type="button"
                   data-status="start"
-                  class="btn btn-outline-primary rounded-pill text-break mr-2 new-game"
+                  class="btn btn-outline-primary rounded-pill text-break mr-2 js-new-game"
                 >
                   New game
                 </button>
                 <button
                   type="button"
-                  class="btn btn-outline-primary rounded-pill text-break pause"
+                  class="btn btn-outline-primary rounded-pill text-break js-pause"
                   data-state="started"
                   disabled
                 >
@@ -88,7 +88,7 @@
                 <div class="d-flex flex-column w-25">
                   <div class="">Points</div>
                   <div
-                    class="border border-primary p-2 mr-4 text-center points"
+                    class="border border-primary p-2 mr-4 text-center js-points"
                   >
                     0
                   </div>
@@ -119,7 +119,7 @@
         <div class="row h-75">
           <div class="col-12 col-md-8 p-2 position-relative">
             <ul
-              class="border border-primary shadow-sm bg-light rounded game-board"
+              class="border border-primary shadow-sm bg-light rounded game-board js-game-board"
             ></ul>
           </div>
           <div class="col-4 p-2 d-none d-md-block">
@@ -132,7 +132,7 @@
                   <th class="p-2 text-center" scope="col">Score</th>
                 </tr>
               </thead>
-              <tbody class="result-table">
+              <tbody class="js-result-table">
                 <tr>
                   <th class="p-1 text-center" scope="row">1</th>
                   <td class="p-1 text-center text-break">AI</td>
@@ -215,9 +215,9 @@
           </div>
           <div class="modal-body">
             <div class="mb-4">
-              Your score: <span class="result-points">0</span>
+              Your score: <span class="js-result-points">0</span>
             </div>
-            <form class="result-form">
+            <form class="js-result-form">
               <input
                 class="form-control mb-5"
                 name="name"

@@ -28,7 +28,6 @@ const boardCubes = {
     this.cubes.forEach((cube) => {
       leftFilledCoords = [...leftFilledCoords, ...cube.filledCoords];
     });
-    console.log('leftFilledCoords:', leftFilledCoords);
     this.resetFilledCoords();
     this.filledCoords = leftFilledCoords;
   },

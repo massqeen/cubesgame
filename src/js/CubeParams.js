@@ -30,7 +30,7 @@ class CubeParams {
 
   getPoints() {
     const multiplier = this.span === 2 ? 1 : 2;
-    let points = 0;
+    let points;
 
     switch (this.color) {
       case options.colors[1]:
@@ -72,10 +72,8 @@ class CubeParams {
       coords[1],
       this.span
     );
-    console.log('currFilledCoords:', currFilledCoords);
     if (!this.isPlaceEmpty(currFilledCoords)) {
       coords = this.changeCoords(coords);
-      console.log('changed coords for:', coords);
     }
     return coords;
   }
@@ -89,7 +87,6 @@ class CubeParams {
           currFilledCoords[j] === filledCoords[i] &&
           currFilledCoords[j + 1] === filledCoords[i + 1]
         ) {
-          console.log('occupied');
           return false;
         }
       }
@@ -98,7 +95,6 @@ class CubeParams {
   }
 
   changeCoords(coords) {
-    console.log('move to the right', coords);
     let column = coords[0];
     let row = coords[1];
     let currFilledCoords = calcCubeFilledCoords([], column, row, this.span);
@@ -106,21 +102,15 @@ class CubeParams {
       if (column < options.columnsQuant - this.span + 1) {
         column += 1;
         currFilledCoords = calcCubeFilledCoords([], column, row, this.span);
-        console.log('changed currFilledCoords:', currFilledCoords);
-        console.log('empty:', this.isPlaceEmpty(currFilledCoords));
       } else if (row < options.rowsQuant - this.span + 1) {
         row += 1;
         column = 1;
         currFilledCoords = calcCubeFilledCoords([], column, row, this.span);
-        console.log('changed currFilledCoords:', currFilledCoords);
-        console.log('empty:', this.isPlaceEmpty(currFilledCoords));
       } else {
         {
           row = 1;
           column = 1;
           currFilledCoords = calcCubeFilledCoords([], column, row, this.span);
-          console.log('changed currFilledCoords:', currFilledCoords);
-          console.log('empty:', this.isPlaceEmpty(currFilledCoords));
         }
       }
     }
