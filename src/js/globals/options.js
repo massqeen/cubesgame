@@ -1,9 +1,9 @@
 const options = {
   _startCubesAmount: 10,
   _colors: ['#a9bc48', '#479b45', '#d693d0', '#ff0026', '#3fd0d4'],
-  _columnsQuant: 20,
+  _columnsQuant: 25,
   _rowsQuant: 20,
-  _timer: 10000,
+  _timer: 60000,
 
   get startCubesAmount() {
     return this._startCubesAmount;
