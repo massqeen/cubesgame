@@ -33,13 +33,15 @@ const boardClickHandler = ({ target, target: { dataset } }) => {
   if (target.nodeName !== 'LI') {
     return;
   }
-  const id = dataset.id;
+  if (+dataset.clicks === 2) {
+    dataset.clicks = 1;
+    return;
+  }
   if (+dataset.time !== 0) {
     timer.changeTime(dataset.time);
   }
   points.addPoints(dataset.points);
-  boardCubes.removeCube(id);
-  console.log('left cubes:', boardCubes.cubes);
+  boardCubes.removeCube(dataset.id);
   target.remove();
   // in case user's clicking '-time' cube, that ends the game
   if (!timer.isActive) {
@@ -49,6 +51,12 @@ const boardClickHandler = ({ target, target: { dataset } }) => {
   }
   refs.points.textContent = points.points;
   boardCubes.updateFilledCoords();
+  if (
+    boardCubes.filledCoords.length >=
+    0.9 * (options.rowsQuant * options.columnsQuant)
+  ) {
+    return;
+  }
   if (boardCubes.cubes.length === 1) {
     updateCubesMarkup(10);
     return;

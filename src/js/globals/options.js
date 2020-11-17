@@ -1,5 +1,5 @@
 const options = {
-  _startCubesAmount: 10,
+  _startCubesAmount: 50,
   _colors: ['#a9bc48', '#479b45', '#d693d0', '#ff0026', '#3fd0d4'],
   _columnsQuant: 25,
   _rowsQuant: 20,

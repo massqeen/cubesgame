@@ -12,6 +12,7 @@
 
   - **2 points for the green cube;**
   - **3 points for the blue cube;**
+  - **Double-click blue cube to remove it;**
   - **1 point for the rest of colors;**
   - **2x points for any small cube;**
   - **-2 seconds for the red cube;**

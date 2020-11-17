@@ -17,6 +17,7 @@ class CubeParams {
   id = uuidv4();
   points = this.getPoints();
   time = this.getTime();
+  clicksToRemove = this.getClicksToRemove();
 
   getColor() {
     const colors = options.colors;
@@ -52,6 +53,10 @@ class CubeParams {
       return -2000;
     }
     return 0;
+  }
+
+  getClicksToRemove() {
+    return this.color === options.colors[4] ? 2 : 1;
   }
 
   getCoords() {
