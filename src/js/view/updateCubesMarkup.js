@@ -1,8 +1,8 @@
-import CubeParams from './CubeParams';
-import boardCubes from './globals/boardCubes';
-import calcCubeFilledCoords from './calcCubeFilledCoords';
-import gameCube from '../templates/gameCube.hbs';
-import refs from './refs';
+import CubeParams from '../CubeParams';
+import boardCubes from '../globals/boardCubes';
+import calcCubeFilledCoords from '../calcCubeFilledCoords';
+import gameCube from '../../templates/gameCube.hbs';
+import refs from '../refs';
 
 const updateCubesMarkup = (n) => {
   for (let i = 0; i < n; i += 1) {

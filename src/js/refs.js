@@ -6,5 +6,6 @@ const refs = {
   resultForm: document.querySelector('.result-form'),
   resultPoints: document.querySelector('.result-points'),
   resultPopup: document.querySelector('#staticBackdrop2'),
+  resultTable: document.querySelector('.result-table'),
 };
 export default refs;

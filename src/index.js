@@ -5,11 +5,14 @@ import boardCubes from './js/globals/boardCubes';
 import refs from './js/refs';
 import './scss/main.scss';
 import './images/favicon.png';
-import updateCubesMarkup from './js/updateCubesMarkup';
+import updateCubesMarkup from './js/view/updateCubesMarkup';
 import getRandomInteger from './js/components/getRandom';
 import points from './js/points';
 import CountdownTimer from './js/components/CountdownTimer';
+import ResultsTable from './js/ResultsTable';
+import './images/opengraph.jpg';
 
+const resultsTable = new ResultsTable();
 const resultPopup = new Modal(refs.resultPopup, {});
 
 const gameOverHandler = () => {
@@ -54,7 +57,9 @@ const boardClickHandler = ({ target, target: { dataset } }) => {
 };
 
 const newGameHandler = () => {
-  timer.stop();
+  if (timer.isActive) {
+    timer.stop();
+  }
   boardCubes.resetCubes();
   boardCubes.resetFilledCoords();
   points.resetPoints();
@@ -92,14 +97,16 @@ const resultSubmitHandler = (e) => {
     name: form.elements.name.value,
     score: points.points,
   };
-  console.log(result);
-  // add player to results
-  // render top-players
+
   form.reset();
   resultPopup.hide();
+  resultsTable.addPlayer(result);
+  resultsTable.render();
 };
 
 refs.gameBoard.addEventListener('click', boardClickHandler);
 refs.newGame.addEventListener('click', newGameHandler);
 refs.pause.addEventListener('click', pauseHandler);
 refs.resultForm.addEventListener('submit', resultSubmitHandler);
+
+resultsTable.init();
